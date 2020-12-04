@@ -1,0 +1,100 @@
+<!------- HTML ------->
+<title>Pyramid</title>
+<body>
+    <div class="pyramid rotation1">
+        <div class="face face1"></div>
+        <div class="face face2"></div>
+        <div class="face face3"></div>
+        <div class="face face4"></div>
+        <div class="face base"></div>
+    </div>
+</body>
+
+
+
+<!------- CSS ------->
+<style>    
+    /********************/
+    /*     ESTÈTICA     */
+    /********************/
+    body {        
+        position: absolute;
+            top: calc(50vh - 100px);
+            left: calc(50vw - 100px);
+    }
+
+    .pyramid {
+        transition: all 1s ease;
+    }
+
+    .base {
+        width: 200px;
+        height: 200px;
+    }
+
+    .face:not(.base) {
+      width: 0px;
+      height: 0px;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 200px solid;
+    }
+
+    .face.face1 { border-bottom-color: hsla(  0, 100%, 50%, 0.7); }
+    .face.face2 { border-bottom-color: hsla( 60, 100%, 50%, 0.7); }
+    .face.face3 { border-bottom-color: hsla(120, 100%, 50%, 0.7); }
+    .face.face4 { border-bottom-color: hsla(180, 100%, 50%, 0.7); }
+    .base       { background: hsla(300, 100%, 50%, 0.7); }
+
+    /********************/
+    /*        3D        */
+    /********************/
+    body {
+        width: 200px;
+        height: 200px;
+        perspective: 400px;
+    }
+
+    .pyramid {
+        width: 200px;
+        height: 200px;
+        transform-style: preserve-3d;
+    }
+
+    .face:not(.base) {
+        position: absolute;
+    }
+
+    .face.face1 { transform:                rotateX( 30deg)   translateZ( 58px); }
+    .face.face2 { transform: rotateY(90deg) rotateX( 30deg)   translateZ( 58px); }
+    .face.face3 { transform: rotateY(90deg) rotateX(-30deg)   translateZ(-58px); }
+    .face.face4 { transform:                rotateX(-30deg)   translateZ(-58px); }
+    .base       { transform:                rotateX( 90deg)   translateZ(-58px); }
+
+
+    /*****************/
+    /*    ROTACIÓ    */
+    /*****************/
+    .rotation1 { transform: rotateY( 0deg); }
+    .rotation2 { transform: rotateY( 90deg); }
+    .rotation3 { transform: rotateY( 180deg); }
+    .rotation4 { transform: rotateY( 270deg); }
+    .rotation5 { transform: rotateX( -90deg); }
+    .rotation6 { transform: rotateX( 90deg); }
+</style>
+
+
+
+<!--------- JAVASCRIPT --------->
+<script>
+    window.addEventListener("click", rotate);
+
+    function rotate() {
+        let pyramid = document.querySelector(".pyramid");
+        let n = Math.ceil(Math.random()*6);
+        let last_class = (pyramid.classList)[1];
+        let new_class = "rotation" + n;
+        pyramid.classList.remove(last_class);
+        pyramid.classList.add(new_class);
+    }
+</script>

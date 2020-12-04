@@ -1,0 +1,105 @@
+<!--------- HTML --------->
+<title>Dynamic cube</title>
+<body>
+    <div class="cube cube-rotated1">
+        <div class="face face1">1</div>
+        <div class="face face2">2</div>
+        <div class="face face3">3</div>
+        <div class="face face4">4</div>
+        <div class="face face5">5</div>
+        <div class="face face6">6</div>
+    </div>
+</body>
+
+
+<!--------- CSS --------->
+<style>
+    /********************/
+    /*     ESTÈTICA     */
+    /********************/
+    body {
+        position: absolute;
+            top: calc(50vh - 100px);
+            left: calc(50vw - 100px);
+    }
+
+    .cube {
+        transition: transform 1s ease;
+    }
+
+    .face {
+        width: 200px;
+        height: 200px;
+        color: white;
+        font-family: sans-serif;
+        font-size: 5em;
+        border: black 2px solid;
+
+        display: flex;
+            justify-content: center;
+            align-items: center;
+    }
+
+    .face1 { background: hsla(  0, 100%, 50%, 0.7); }
+    .face2 { background: hsla( 60, 100%, 50%, 0.7); }
+    .face3 { background: hsla(120, 100%, 50%, 0.7); }
+    .face4 { background: hsla(180, 100%, 50%, 0.7); }
+    .face5 { background: hsla(240, 100%, 50%, 0.7); }
+    .face6 { background: hsla(300, 100%, 50%, 0.7); }
+
+
+    /********************/
+    /*        3D        */
+    /********************/
+    body {
+        /* Dóna perspectiva de profunditat. No sé per què. */
+        width: 200px;
+        height: 200px;
+        perspective: 400px;
+    }
+
+    .cube {
+        width: 200px;
+        height: 200px;
+        /* Permite que el cubo sea tridimensional. */
+        transform-style: preserve-3d;
+    }
+
+    .face {
+        /* Para que cada cara se sitúe en referencia a un mismo punto. */
+        position: absolute;
+    }
+
+    /* Colocación y rotación de las caras.
+    El eje Z mueve las caras desde el origen de coordenadas, el cual es el centro del cubo que permanece vacío, a la posición correspondiente. */
+    .face1 { transform:                    translateZ(100px); }
+    .face2 { transform: rotateY( -90deg)   translateZ(100px); }
+    .face3 { transform: rotateY(  90deg)   translateZ(100px); }
+    .face4 { transform: rotateX(  90deg)   translateZ(100px); }
+    .face5 { transform: rotateX( -90deg)   translateZ(100px); }
+    .face6 { transform: rotateY(-180deg)   translateZ(100px); }
+
+    /*****************/
+    /*  ROTACIÓ DAU  */
+    /*****************/
+    .cube-rotated1 { transform: rotateY(   0deg);}
+    .cube-rotated2 { transform: rotateY(  90deg);}
+    .cube-rotated3 { transform: rotateY( -90deg);}
+    .cube-rotated4 { transform: rotateX( -90deg);}
+    .cube-rotated5 { transform: rotateX(  90deg);}
+    .cube-rotated6 { transform: rotateY(-180deg);}
+</style>
+
+<!--------- JAVASCRIPT --------->
+<script>
+    window.addEventListener("click", rotate);
+
+    function rotate() {
+        let cube = document.querySelector(".cube");
+        let n = Math.ceil(Math.random()*6);
+        let last_class = (cube.classList)[1];
+        let new_class = "cube-rotated" + n;
+        cube.classList.remove(last_class);
+        cube.classList.add(new_class);
+    }
+</script>
